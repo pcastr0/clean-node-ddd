@@ -1,11 +1,12 @@
 const express = require('express');
 
 class Server {
-  constructor({ config }) {
+  constructor({ config, router }) {
     this.config = config;
     this.express = express();
 
     this.express.disable('x-powered-by');
+    this.express.use(router);
   }
 
   start() {
