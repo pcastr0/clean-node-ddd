@@ -6,8 +6,18 @@ describe('Infra :: Logging :: LoggerStreamAdapter', () => {
     it('wraps the logger into a stream', () => {
       const fakeLogger = {};
 
-      expect(LoggerStreamAdapter.toStream(fakeLogger).to.have.all.keys('write'));
+      expect(LoggerStreamAdapter.toStream(fakeLogger)).to.have.all.keys('write');
       
+    });
+
+    it('removes the \\n character from the message', () => {
+      const fakeLogger = {
+        info(message) {
+          expect(message).to.equal('Sliced message');
+        }
+      }
+
+      LoggerStreamAdapter.toStream(fakeLogger).write('Sliced message\n');
     });
   });
 });

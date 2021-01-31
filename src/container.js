@@ -7,6 +7,10 @@ const Application = require('./app/Application');
 const Server = require('./interfaces/http/Server');
 const router = require('./interfaces/http/router');
 
+const loggerMiddleWare = require('./interfaces/http/logging/loggerMiddleware');
+
+const logger = require('./infra/logging/logger');
+
 const container = createContainer();
 
 // Server
@@ -16,16 +20,17 @@ container
     server: asClass(Server).singleton()
   })
   .register({
-    router: asFunction(router).singleton()
+    router: asFunction(router).singleton(),
+    logger: asFunction(logger).singleton()
   })
   .register({
     config: asValue(config)
   });
 
 // Middleware
-// container
-//   .register({
-//     containerMiddleware: asValue(scopePerRequest(container))
-//   });
+container
+  .register({
+    loggerMiddleWare: asFunction(loggerMiddleWare).singleton()
+  });
 
 module.exports = container;
