@@ -8,7 +8,12 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon"
+    "dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
+    "test": "npm run test:all",
+    "test:all": "npm run test:unit && npm run test:features",
+    "test:unit": "cross-env NODE_PATH=. NODE_ENV=development mocha --config test/.mocharc.unit.js",
+    "test:features": "cross-env NODE_PATH=. NODE_ENV=test mocha --config test/.mocharc.features.js",
+    "coverage": "cross-env NODE_PATH=. NODE_ENV=test nyc mocha --config test/.mocharc.unit.js"
   },
   "repository": {
     "type": "git",
@@ -38,6 +43,11 @@
     "method-override": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "chai": "^4.2.0",
+    "chai-change": "^2.1.2",
+    "dirty-chai": "^2.0.1",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.7",
+    "nyc": "^15.1.0"
   }
 }
