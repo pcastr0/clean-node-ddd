@@ -7,7 +7,7 @@
     "node": ">=14.15.4"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "cross-env NODE_PATH=. NODE_ENV=development node index.js",
     "dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
     "test": "npm run test:all",
     "test:all": "npm run test:unit && npm run test:features",
