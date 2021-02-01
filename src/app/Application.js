@@ -11,8 +11,12 @@ class Application {
 
   async start() {
     if (this.database) {
-      await this.database.authenticate();
-      console.log('Database is connected!');
+      try {
+        await this.database.authenticate();
+        this.logger.info('Database is connected.');
+      } catch (err) {
+        this.logger.error('Unable to connect to Database.', err.message)
+      }
     }
 
     await this.server.start();
