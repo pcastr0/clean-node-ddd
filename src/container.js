@@ -1,5 +1,5 @@
 const { createContainer, asClass, asFunction, asValue } = require('awilix');
-const { scopePerRequest } = require('awilix-express');
+// const { scopePerRequest } = require('awilix-express');
 
 const config = require('../config');
 const Application = require('./app/Application');
@@ -10,7 +10,7 @@ const router = require('./interfaces/http/router');
 const loggerMiddleWare = require('./interfaces/http/logging/loggerMiddleware');
 
 const logger = require('./infra/logging/logger');
-const { database } = require('./infra/database/models')
+const { database } = require('./infra/database/models');
 
 const container = createContainer();
 
@@ -38,6 +38,6 @@ container
 container
   .register({
     database: asValue(database)
-  })
+  });
 
 module.exports = container;

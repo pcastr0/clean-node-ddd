@@ -34,4 +34,4 @@ module.exports = ({ config, loggerMiddleWare }) => {
 
   return router;
 
-}
+};

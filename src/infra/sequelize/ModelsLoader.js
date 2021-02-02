@@ -14,9 +14,9 @@ module.exports = {
       })
       .forEach(file => {
         // const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-        // db[model.name] = model;
-        const model = sequelize['import'](path.join(baseFolder, file));
+        const model = require(path.join(baseFolder, file));
         const modelName = file.split('.')[0];
+        loaded[modelName] = model;
       });
 
     Object.keys(loaded).forEach(modelName => {
@@ -30,7 +30,7 @@ module.exports = {
     return loaded;
 
   }
-}
+};
 
 
 
