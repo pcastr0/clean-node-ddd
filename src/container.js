@@ -10,7 +10,7 @@ const router = require('./interfaces/http/router');
 const loggerMiddleWare = require('./interfaces/http/logging/loggerMiddleware');
 
 const logger = require('./infra/logging/logger');
-const { database } = require('./infra/database/models');
+const { database, User: UserModel } = require('./infra/database/models');
 
 const container = createContainer();
 
@@ -37,7 +37,8 @@ container
 // Database
 container
   .register({
-    database: asValue(database)
+    database: asValue(database),
+    UserModel: asValue(UserModel)
   });
 
 module.exports = container;
