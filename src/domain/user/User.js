@@ -1,15 +1,14 @@
 const { attributes } = require('structure');
 
 const User = attributes({
-  userId: Number,
+  id: Number,
   firstName: {
     type: String,
     required: true
   },
   middleName: {
     type: String,
-    required: true,
-    maxLength: 2
+    required: true
   },
   lastName: {
     type: String,
@@ -21,7 +20,8 @@ const User = attributes({
   },
   email: {
     type: String,
-    email: true
+    email: true,
+    required: true
   },
   contactNumber: {
     type: String,
@@ -33,7 +33,7 @@ const User = attributes({
   },
   birthDay: {
     type: Date,
-    required: true
+    nullable: true
   },
   age: {
     type: Number

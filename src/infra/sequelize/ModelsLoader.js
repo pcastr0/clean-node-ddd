@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = {
-  load({ sequelize, baseFolder, indexFile = 'index.js' }) {
+  load({ sequelize, dataTypes, baseFolder, indexFile = 'index.js' }) {
     const loaded = {};
 
     fs
@@ -13,10 +13,18 @@ module.exports = {
         return (file.indexOf('.') !== 0) && (file !== indexFile) && (file.slice(-3) === '.js');
       })
       .forEach(file => {
-        // const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-        const model = require(path.join(baseFolder, file));
+        // Fix this
+        const model = require(path.join(baseFolder, file))(sequelize, dataTypes);
+        // console.log(sequelize);
+        // console.log(dataTypes);
+        // const model = sequelize['import'](path.join(baseFolder, file));
         const modelName = file.split('.')[0];
         loaded[modelName] = model;
+        console.log('model.name');
+        console.log(model);
+        // console.log('load model');
+        // console.log(model);
+        // console.log(typeof model);
       });
 
     Object.keys(loaded).forEach(modelName => {
@@ -26,7 +34,8 @@ module.exports = {
     });
 
     loaded.database = sequelize;
-    
+    console.log(loaded);
+
     return loaded;
 
   }

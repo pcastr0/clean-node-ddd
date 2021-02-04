@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       gender: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       email: {
@@ -29,20 +29,16 @@ module.exports = {
         type: Sequelize.STRING
       },
       contactNumber: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       address: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
-      birthDay: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      age: {
+      birthday: {
         allowNull: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -54,7 +50,6 @@ module.exports = {
       }
     });
   },
-  // eslint-disable-next-line no-unused-vars
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Users');
   }

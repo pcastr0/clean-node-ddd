@@ -10,7 +10,7 @@ const router = require('./interfaces/http/router');
 const loggerMiddleWare = require('./interfaces/http/logging/loggerMiddleware');
 
 const logger = require('./infra/logging/logger');
-const { database, User: UserModel } = require('./infra/database/models');
+const { database, user: UserModel } = require('./infra/database/models');
 
 const container = createContainer();
 

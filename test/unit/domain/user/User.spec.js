@@ -1,6 +1,8 @@
 const { expect } = require('chai');
 const User = require('src/domain/user/User');
 
+// This is just a sample unit test
+// We can write a sensible tests based on a use case later on
 describe('Domain :: User', () => {
   describe('#isLegal', () => {
     context('when user is younger than 21', () => {
