@@ -13,18 +13,9 @@ module.exports = {
         return (file.indexOf('.') !== 0) && (file !== indexFile) && (file.slice(-3) === '.js');
       })
       .forEach(file => {
-        // Fix this
         const model = require(path.join(baseFolder, file))(sequelize, dataTypes);
-        // console.log(sequelize);
-        // console.log(dataTypes);
-        // const model = sequelize['import'](path.join(baseFolder, file));
         const modelName = file.split('.')[0];
         loaded[modelName] = model;
-        console.log('model.name');
-        console.log(model);
-        // console.log('load model');
-        // console.log(model);
-        // console.log(typeof model);
       });
 
     Object.keys(loaded).forEach(modelName => {
@@ -34,7 +25,6 @@ module.exports = {
     });
 
     loaded.database = sequelize;
-    console.log(loaded);
 
     return loaded;
 

@@ -58,13 +58,34 @@ describe('Infra :: User :: SequelizeUsersRepository', () => {
   describe('#getById', () => {
     context('when user exists', () => {
       it('returns the user', async () => {
+        const user = await factory.create('user', {
+          firstName: 'Patrick',
+          middleName: 'Corpuz',
+          lastName: 'Castro',
+          email: 'patrickp.castro@gmail.com',
+          contactNumber: '+639155634242'
+        });
 
+        const foundUser = await repository.getById(user.id);
+
+        expect(foundUser).to.be.instanceOf(User);
+        expect(foundUser.id).to.equal(user.id);
+        expect(foundUser.firstName).to.equal(user.firstName);
+        expect(foundUser.middleName).to.equal(user.middleName);
+        expect(foundUser.lastName).to.equal(user.lastName);
+        expect(foundUser.email).to.equal(user.email);
+        expect(foundUser.contactNumber).to.equal(user.contactNumber);
       });
     });
 
     context('when user does not exist', () => {
       it('reject with an error', async () => {
-
+        try {
+          await repository.getById(0);
+        } catch (error) {
+          expect(error.message).to.equal('NotFoundError');
+          expect(error.details).to.equal('User with id 0 can\'t be found.');
+        }
       });
     });
   });
@@ -72,13 +93,49 @@ describe('Infra :: User :: SequelizeUsersRepository', () => {
   describe('#add', () => {
     context('when the user is valid', () => {
       it('persist the user', () => {
+        const user = new User({
+          firstName: 'Patrick',
+          middleName: 'Corpuz',
+          lastName: 'Castro',
+          email: 'patrickp.castro@gmail.com',
+          contactNumber: '+639155634242'
+        });
 
+        expect(user.validate().valid).to.be.ok();
+
+        return expect(async () => {
+          const persistedUser = await repository.add(user);
+
+          expect(persistedUser.id).to.exist;
+          expect(persistedUser.firstName).to.equal(user.firstName);
+          expect(persistedUser.middleName).to.equal(user.middleName);
+          expect(persistedUser.lastName).to.equal(user.lastName);
+          expect(persistedUser.email).to.equal(user.email);
+          expect(persistedUser.contactNumber).to.equal(user.contactNumber);
+        }).to.alter(() => repository.count(), { by: 1 });
       });
     });
 
     context('when user is invalid', () => {
       it('does not persist the user and reject with an error', () => {
+        const user = new User();
 
+        expect(user.validate().valid).to.not.be.ok();
+
+        return expect(async () => {
+          try {
+            await repository.add(user);
+          } catch (error) {
+            expect(error.message).to.equal('ValidationError');
+            expect(error.details).to.eql([
+              { message: '"firstName" is required', path: ['firstName'] },
+              { message: '"middleName" is required', path: ['middleName'] },
+              { message: '"lastName" is required', path: ['lastName'] },
+              { message: '"email" is required', path: ['email'] },
+              { message: '"contactNumber" is required', path: ['contactNumber'] }
+            ]);
+          }
+        }).to.not.alter(() => repository.count());
       });
     });
 
