@@ -23,7 +23,7 @@ class SequelizeUsersRepository {
     if (!valid) {
       const error = new Error('ValidationError');
       error.details = errors;
-      
+
       throw error;
     }
 
@@ -31,12 +31,40 @@ class SequelizeUsersRepository {
     return UserMapper.toEntity(newUser);
   }
 
-  async update() {
+  async update(id, newData) {
+    const user = await this._getById(id);
 
+    const transaction = await this.UserModel.sequelize.transaction();
+
+    try {
+      const updatedUser = await user.update(newData, { transaction });
+      const userEntity = UserMapper.toEntity(updatedUser);
+
+      const { valid, errors } = userEntity.validate();
+
+      if (!valid) {
+        const error = new Error('ValidationError');
+        error.details = errors;
+
+        throw error;
+      }
+
+      await transaction.commit();
+
+      return userEntity;
+
+    } catch (error) {
+      await transaction.rollback();
+
+      throw error;
+    }
   }
 
-  async remove() {
-
+  async remove(id) {
+    const user = await this._getById(id);
+    
+    await user.destroy();
+    return;
   }
 
   async count() {
@@ -54,7 +82,7 @@ class SequelizeUsersRepository {
 
         throw notFoundError;
       }
-      
+
       throw error;
     }
   }

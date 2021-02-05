@@ -142,38 +142,88 @@ describe('Infra :: User :: SequelizeUsersRepository', () => {
   });
 
   describe('#update', () => {
-    context('when the user exists', () => {
+    context('when user exists', () => {
       context('when data is valid', () => {
         it('updates and returns the updated user', async () => {
+          const user = await factory.create('user', {
+            firstName: 'Patrick',
+            middleName: 'Corpuz',
+            lastName: 'Castro',
+            email: 'patrickp.castro@gmail.com',
+            contactNumber: '+639155634242'
+          });
 
+          return expect(async () => {
+            return await repository.update(user.id, { email: 'patrickcastro4.20@gmail.com' });
+          }).to.alter(async () => {
+            const dbUser = await UserModel.findByPk(user.id);
+            return dbUser.email;
+          }, { from: 'patrickp.castro@gmail.com', to: 'patrickcastro4.20@gmail.com' });
         });
       });
 
       context('when data is not valid', () => {
-        it('does not update and returns the error', async () => {
+        it('does not update and returns an error', async () => {
+          const user = await factory.create('user', {
+            firstName: 'Patrick',
+            middleName: 'Corpuz',
+            lastName: 'Castro',
+            email: 'patrickp.castro@gmail.com',
+            contactNumber: '+639155634242'
+          });
 
+          return expect(async () => {
+            try {
+              await repository.update(user.id, { email: '' });
+            } catch (error) {
+              expect(error.message).to.equal('ValidationError');
+            }
+          }).to.not.alter(async () => {
+            const dbUser = await UserModel.findByPk(user.id);
+            return dbUser.email;
+          });
         });
+
       });
     });
 
     context('when the user does not exist', () => {
       it('returns an error', async () => {
-
+        try {
+          await repository.update(0, { email: 'patrickcastro4.20@gmail.com' });
+        } catch (error) {
+          expect(error.message).to.equal('NotFoundError');
+          expect(error.details).to.equal('User with id 0 can\'t be found.');
+        }
       });
     });
-
   });
 
   describe('#remove', () => {
     context('when the user exists', () => {
-      it('removes the user', () => {
-
+      it('removes the user', async () => {
+        const user = await factory.create('user', {
+          firstName: 'Patrick',
+          middleName: 'Corpuz',
+          lastName: 'Castro',
+          email: 'patrickp.castro@gmail.com',
+          contactNumber: '+639155634242'
+        });
+        
+        return expect(async () => {
+          return await repository.remove(user.id);
+        }).to.alter(() => repository.count(), { by: -1 });
       });
     });
 
     context('when the user does not exist', () => {
-      it('returns an error', () => {
-
+      it('returns an error', async () => {
+        try {
+          await repository.remove(0);
+        } catch (error) {
+          expect(error.message).to.equal('NotFoundError');
+          expect(error.details).to.equal('User with id 0 can\'t be found.');
+        }
       });
     });
   });
