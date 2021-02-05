@@ -28,8 +28,6 @@ module.exports = ({ config, loggerMiddleWare }) => {
     .use(bodyParser.json())
     .use(compression());
 
-  apiRouter.use('/test', controller('hello/helloController'));
-
   router.use('/api', apiRouter);
 
   return router;
