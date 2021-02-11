@@ -6,7 +6,7 @@ const compression = require('compression');
 const methodOverride = require('method-override');
 const controller = require('./utils/createControllerRoutes');
 
-module.exports = ({ config, loggerMiddleWare }) => {
+module.exports = ({ config, containerMiddleware, loggerMiddleware }) => {
 
   const router = Router();
 
@@ -17,7 +17,7 @@ module.exports = ({ config, loggerMiddleWare }) => {
 
   /* istanbul ignore if */
   if (config.env !== 'test') {
-    router.use(loggerMiddleWare);
+    router.use(loggerMiddleware);
   }
 
   const apiRouter = Router();
@@ -26,7 +26,10 @@ module.exports = ({ config, loggerMiddleWare }) => {
     .use(methodOverride('X-HTTP-Method-Override'))
     .use(cors())
     .use(bodyParser.json())
-    .use(compression());
+    .use(compression())
+    .use(containerMiddleware);
+
+  apiRouter.use('/users', controller('user/UsersController'));
 
   router.use('/api', apiRouter);
 

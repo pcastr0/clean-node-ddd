@@ -1,6 +1,7 @@
 const Status = require('http-status');
 
 /* istanbul ignore next */
+// eslint-disable-next-line no-unused-vars
 module.exports = (err, req, res, next) => {
   const { logger } = req.container.cradle;
 
@@ -11,4 +12,4 @@ module.exports = (err, req, res, next) => {
     message: 'The server failed to handle this request'
   });
 
-}
+};
