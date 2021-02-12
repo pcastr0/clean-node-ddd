@@ -10,9 +10,9 @@
     "start": "cross-env NODE_PATH=. NODE_ENV=development node index.js",
     "dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
     "test": "npm run test:all",
-    "test:all": "npm run test:unit && npm run test:features",
+    "test:all": "npm run test:unit && npm run test:integration",
     "test:unit": "cross-env NODE_PATH=. NODE_ENV=test mocha --config test/.mocharc.unit.js",
-    "test:features": "cross-env NODE_PATH=. NODE_ENV=test mocha --config test/.mocharc.features.js",
+    "test:integration": "cross-env NODE_PATH=. NODE_ENV=test mocha --config test/.mocharc.integration.js",
     "coverage": "cross-env NODE_PATH=. NODE_ENV=test nyc mocha --config test/.mocharc.unit.js",
     "lint": "eslint {src,test,config}/**/*.js",
     "sequelize": "cross-env NODE_PATH=. sequelize"
@@ -59,6 +59,8 @@
     "factory-girl": "^5.0.4",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.7",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "supertest": "^6.1.3",
+    "supertest-as-promised": "^4.0.2"
   }
 }

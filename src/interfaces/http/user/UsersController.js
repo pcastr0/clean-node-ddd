@@ -11,6 +11,12 @@ const UserController = {
     return router;
   },
 
+  index: inject(({ getAllUsers, userSerializer}) => 
+    (req, res, next) => {
+
+    }  
+  ),
+
   create: inject(({createUser, userSerializer}) =>
     (req, res, next) => {
       const {SUCCESS, ERROR, VALIDATION_ERROR} = createUser.outputs;

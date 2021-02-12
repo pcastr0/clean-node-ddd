@@ -6,9 +6,10 @@ const compression = require('compression');
 const methodOverride = require('method-override');
 const controller = require('./utils/createControllerRoutes');
 
-module.exports = ({ config, containerMiddleware, loggerMiddleware }) => {
+module.exports = ({ config, containerMiddleware, loggerMiddleware, errorHandler }) => {
 
   const router = Router();
+  console.log(config.env);
 
   /* istanbul ignore if */
   if (config.env === 'development') {
@@ -32,6 +33,8 @@ module.exports = ({ config, containerMiddleware, loggerMiddleware }) => {
   apiRouter.use('/users', controller('user/UsersController'));
 
   router.use('/api', apiRouter);
+  
+  router.use(errorHandler);
 
   return router;
 
