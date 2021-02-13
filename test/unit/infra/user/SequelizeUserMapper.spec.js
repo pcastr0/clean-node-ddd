@@ -44,7 +44,7 @@ describe('Infra :: User :: SequelizeUserMapper', () => {
         expect(dbUser.lastName).to.equal('Castro');
         expect(dbUser.email).to.equal('patrickp.castro@gmail.com');
         expect(dbUser.contactNumber).to.equal('+639155634242');
-        expect(dbUser).to.have.all.keys('firstName', 'middleName', 'lastName', 'gender', 'email', 'address', 'contactNumber', 'birthDay');
+        expect(dbUser).to.have.all.keys('firstName', 'middleName', 'lastName', 'gender', 'email', 'address', 'contactNumber', 'birthday');
       });
     });
   });

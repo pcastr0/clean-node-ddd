@@ -12,7 +12,7 @@ class GetAllUsers extends Operation {
 
     try {
       const users = await this.usersRepository.getAll( {
-        attributes: ['id', 'firstName', 'middleName', 'lastName', 'gender', 'email', 'contactNumber', 'address', 'birthDay']
+        attributes: ['id', 'firstName', 'middleName', 'lastName', 'gender', 'email', 'contactNumber', 'address', 'birthday']
       });
 
       this.emit(SUCCESS, users);

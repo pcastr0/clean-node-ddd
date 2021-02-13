@@ -9,7 +9,6 @@ const controller = require('./utils/createControllerRoutes');
 module.exports = ({ config, containerMiddleware, loggerMiddleware, errorHandler }) => {
 
   const router = Router();
-  console.log(config.env);
 
   /* istanbul ignore if */
   if (config.env === 'development') {

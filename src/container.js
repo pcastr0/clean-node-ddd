@@ -5,7 +5,9 @@ const config = require('../config');
 const Application = require('./app/Application');
 
 const {
-  CreateUser
+  CreateUser,
+  GetAllUsers,
+  GetUser
 } = require('./app/user');
 
 const UserSerializer = require('./interfaces/http/user/UserSerializer');
@@ -61,7 +63,9 @@ container
 
 // Operations
 container.register({
-  createUser: asClass(CreateUser)
+  createUser: asClass(CreateUser),
+  getAllUsers: asClass(GetAllUsers),
+  getUser: asClass(GetUser)
 });
 
 // Serializers

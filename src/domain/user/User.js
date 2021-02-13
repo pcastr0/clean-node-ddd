@@ -31,7 +31,7 @@ const User = attributes({
     type: String,
     nullable: true
   },
-  birthDay: {
+  birthday: {
     type: Date,
     nullable: true
   },

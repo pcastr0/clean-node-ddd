@@ -12,7 +12,7 @@ describe('Interfaces :: HTTP :: User :: UserSerializer', () => {
       contactNumber: '+639155634242',
       address: 'Some address',
       gender: 'Male',
-      birthDay: Date.now()
+      birthday: '1994-04-28'
     });
 
     expect(serializedUser).to.eql({
@@ -24,7 +24,7 @@ describe('Interfaces :: HTTP :: User :: UserSerializer', () => {
       contactNumber: '+639155634242',
       address: 'Some address',
       gender: 'Male',
-      birthDay: Date.now()
+      birthday: '1994-04-28'
     });
   });
 });

@@ -1,5 +1,5 @@
 const UserSerializer = {
-  serialize({ id, firstName, middleName, lastName, gender, email, contactNumber, address, birthDay }) {
+  serialize({ id, firstName, middleName, lastName, gender, email, contactNumber, address, birthday }) {
     return {
       id,
       firstName,
@@ -9,7 +9,7 @@ const UserSerializer = {
       email,
       contactNumber,
       address,
-      birthDay
+      birthday
     };
   }
 };
