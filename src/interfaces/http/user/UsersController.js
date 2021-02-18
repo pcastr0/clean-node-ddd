@@ -9,11 +9,13 @@ const UserController = {
     router.get('/', this.index);
     router.get('/:id', this.show);
     router.post('/', this.create);
-  
+    router.put('/:id', this.update);
+    router.delete('/:id', this.delete);
+
     return router;
   },
 
-  index: inject(({ getAllUsers, userSerializer }) => 
+  index: inject(({ getAllUsers, userSerializer }) =>
     (req, res, next) => {
       const { SUCCESS, ERROR } = getAllUsers.outputs;
 
@@ -29,7 +31,7 @@ const UserController = {
     }
   ),
 
-  show: inject(({ getUser, userSerializer }) => 
+  show: inject(({ getUser, userSerializer }) =>
     (req, res, next) => {
       const { SUCCESS, ERROR, NOT_FOUND } = getUser.outputs;
 
@@ -72,6 +74,59 @@ const UserController = {
       createUser.execute(req.body);
     }
   ),
+
+  update: inject(({ updateUser, userSerializer }) =>
+    (req, res, next) => {
+      const { SUCCESS, ERROR, VALIDATION_ERROR, NOT_FOUND } = updateUser.outputs;
+
+      updateUser
+        .on(SUCCESS, (user) => {
+          res
+            .status(Status.ACCEPTED)
+            .json(userSerializer.serialize(user));
+        })
+        .on(VALIDATION_ERROR, (error) => {
+          res
+            .status(Status.BAD_REQUEST)
+            .json({
+              type: 'ValidationError',
+              details: error.details
+            });
+        })
+        .on(NOT_FOUND, (error) => {
+          res
+            .status(Status.NOT_FOUND)
+            .json({
+              type: 'NotFoundError',
+              details: error.details
+            });
+        })
+        .on(ERROR, next);
+
+      updateUser.execute(Number(req.params.id), req.body);
+    }
+  ),
+
+  delete: inject(({ deleteUser }) => 
+    (req, res, next) => {
+      const { SUCCESS, NOT_FOUND, ERROR } = deleteUser.outputs;
+
+      deleteUser
+        .on(SUCCESS, () => {
+          res.status(Status.ACCEPTED).end();
+        })
+        .on(NOT_FOUND, (error) => {
+          res.status(Status.NOT_FOUND).json({
+            type: 'NotFoundError',
+            details: error.details
+          });
+        })
+        .on(ERROR, next);
+      
+      deleteUser.execute(Number(req.params.id));
+    }
+  )
+  
 };
 
 module.exports = UserController;

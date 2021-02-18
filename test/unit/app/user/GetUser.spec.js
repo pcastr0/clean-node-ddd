@@ -44,4 +44,27 @@ describe('App :: User :: GetUser', () => {
     });
   });
 
+  context('when user does not exist', () => {
+    beforeEach(() => {
+      const MockUsersRepository = {
+        getById: () => Promise.reject({
+          details: 'User with id 123 can\'t be found.'
+        })
+      };
+
+      getUser = new GetUser({
+        usersRepository: MockUsersRepository
+      });
+    });
+
+    it('emits NOT_FOUND with the error', (done) => {
+      getUser.on(getUser.outputs.NOT_FOUND, (error) => {
+        expect(error.details).to.equal('User with id 123 can\'t be found.');
+        done();
+      });
+
+      getUser.execute(123);
+    });
+  });
+
 });
