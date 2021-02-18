@@ -27,25 +27,28 @@ describe('Infra :: User :: SequelizeUserMapper', () => {
       expect(entity.contactNumber).to.equal('+639155634242');
     });
 
-    describe('.toDatabase', () => {
-      it('returns user object prepared to be persisted', () => {
-        const user = new User({
-          firstName: 'Patrick',
-          middleName: 'Corpuz',
-          lastName: 'Castro',
-          email: 'patrickp.castro@gmail.com',
-          contactNumber: '+639155634242',
-        });
-
-        const dbUser = SequelizeUserMapper.toDatabase(user);
-
-        expect(dbUser.firstName).to.equal('Patrick');
-        expect(dbUser.middleName).to.equal('Corpuz');
-        expect(dbUser.lastName).to.equal('Castro');
-        expect(dbUser.email).to.equal('patrickp.castro@gmail.com');
-        expect(dbUser.contactNumber).to.equal('+639155634242');
-        expect(dbUser).to.have.all.keys('firstName', 'middleName', 'lastName', 'gender', 'email', 'address', 'contactNumber', 'birthday');
-      });
-    });
   });
+
+  describe('.toDatabase', () => {
+    it('returns user object prepared to be persisted', () => {
+      const user = new User({
+        firstName: 'Patrick',
+        middleName: 'Corpuz',
+        lastName: 'Castro',
+        email: 'patrickp.castro@gmail.com',
+        contactNumber: '+639155634242',
+      });
+
+      const dbUser = SequelizeUserMapper.toDatabase(user);
+
+      expect(dbUser.firstName).to.equal('Patrick');
+      expect(dbUser.middleName).to.equal('Corpuz');
+      expect(dbUser.lastName).to.equal('Castro');
+      expect(dbUser.email).to.equal('patrickp.castro@gmail.com');
+      expect(dbUser.contactNumber).to.equal('+639155634242');
+      expect(dbUser).to.have.all.keys('firstName', 'middleName', 'lastName', 'gender', 'email', 'address', 'contactNumber', 'birthday');
+    });
+
+  });
+  
 });

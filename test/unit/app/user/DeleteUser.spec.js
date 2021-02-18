@@ -51,4 +51,26 @@ describe('App :: User :: DeleteUser', () => {
 
   });
 
+  context('when there is an internal error', () => {
+    before(() => {
+      const MockUsersRepository = {
+        remove: () => Promise.reject(new Error('Some Error'))
+      };
+
+      deleteUser = new DeleteUser({
+        usersRepository: MockUsersRepository
+      });
+    });
+
+    it('emits ERROR with the error', (done) => {
+      deleteUser.on(deleteUser.outputs.ERROR, (response) => {
+        expect(response.message).to.equal('Some Error');
+        done();
+      });
+
+      deleteUser.execute(321);
+    });
+    
+  });
+
 });

@@ -70,7 +70,7 @@ describe('App :: User :: CreateUser', () => {
 
   });
 
-  context('when ther is an internal error', () => {
+  context('when there is an internal error', () => {
     before(() => {
       const MockUsersRepository = {
         add: () => Promise.reject(new Error('Some Error'))
@@ -80,24 +80,25 @@ describe('App :: User :: CreateUser', () => {
         usersRepository: MockUsersRepository
       });
 
-      it('emits ERROR with the error', () => {
-        const userData = {
-          firstName: 'Patrick',
-          middleName: 'Corpuz',
-          lastName: 'Castro',
-          email: 'patrickp.castro@gmail.com',
-          contactNumber: '+639155634242'
-        };
-
-        createUser.on(createUser.outputs.ERROR, (response) => {
-          expect(response.message).to.equal('Some Error');
-          done();
-        });
-
-        createUser.execute(userData);
-      });
     });
-    
+
+    it('emits ERROR with the error', () => {
+      const userData = {
+        firstName: 'Patrick',
+        middleName: 'Corpuz',
+        lastName: 'Castro',
+        email: 'patrickp.castro@gmail.com',
+        contactNumber: '+639155634242'
+      };
+
+      createUser.on(createUser.outputs.ERROR, (response) => {
+        expect(response.message).to.equal('Some Error');
+        done();
+      });
+
+      createUser.execute(userData);
+    });
+
   });
 
 });

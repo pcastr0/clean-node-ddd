@@ -1,9 +1,9 @@
 {
-  "cwd": "./",
+  "cwd": "./src",
   "exclude": [
-    "src/container.js",
-    "src/app/Application.js",
-    "src/interfaces/http"
+    "container.js",
+    "app/Application.js",
+    "interfaces/http"
   ],
   "reporter": [
     "html",
