@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node cluster.js",
-    "dev": "cross-env NODE_PATH=. NODE_ENV=production nodemon",
+    "dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
     "test": "npm run test:all",
     "test:all": "npm run test:unit && npm run test:integration",
     "test:unit": "cross-env NODE_PATH=. NODE_ENV=test mocha --config test/.mocharc.unit.js",
