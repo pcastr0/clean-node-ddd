@@ -14,5 +14,4 @@ module.exports = {
     dialect: 'mysql',
     logging: false
   },
-  production: process.env.DATABASE_URL
-}
+  production: process.env.CLEARDB_DATABASE_URL
