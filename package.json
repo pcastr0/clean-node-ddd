@@ -7,15 +7,16 @@
     "node": ">=14.15.4"
   },
   "scripts": {
-    "start": "cross-env NODE_PATH=. NODE_ENV=development node index.js",
-    "dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
+    "start": "node cluster.js",
+    "dev": "cross-env NODE_PATH=. NODE_ENV=production nodemon",
     "test": "npm run test:all",
     "test:all": "npm run test:unit && npm run test:integration",
     "test:unit": "cross-env NODE_PATH=. NODE_ENV=test mocha --config test/.mocharc.unit.js",
     "test:integration": "cross-env NODE_PATH=. NODE_ENV=test mocha --config test/.mocharc.integration.js",
     "coverage": "cross-env NODE_PATH=. NODE_ENV=test nyc mocha --config test/.mocharc.unit.js",
     "lint": "eslint {src,test,config}/**/*.js",
-    "sequelize": "cross-env NODE_PATH=. sequelize"
+    "sequelize": "cross-env NODE_PATH=. sequelize",
+    "pm2": "pm2"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
+    "pm2": "^4.5.4",
     "sequelize": "^6.5.0",
     "sequelize-cli": "^6.2.0",
     "structure": "^2.0.1"
@@ -55,7 +57,7 @@
     "chai-change": "^2.1.2",
     "chance": "^1.1.7",
     "dirty-chai": "^2.0.1",
-    "eslint": "^7.19.0",
+    "eslint": "^7.20.0",
     "factory-girl": "^5.0.4",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.7",
