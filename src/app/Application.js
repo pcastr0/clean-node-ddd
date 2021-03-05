@@ -13,7 +13,6 @@ class Application {
     if (this.database) {
       try {
         await this.database;
-        console.log(this.database);
         this.logger.info('Server started Successfully.');
       } catch (err) {
         this.logger.error('Internal Server Error.', err.message);

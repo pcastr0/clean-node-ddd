@@ -1,28 +1,9 @@
-// const { ModelsLoader } = require('src/infra/sequelize');
-// const { Sequelize, DataTypes } = require('sequelize');
-// const { db: config } = require('config');
-
-// if (config) {
-//   const sequelize = new Sequelize(config);
-//   const dataTypes = DataTypes;
-//   // console.log('on index');
-//   // console.log(dataTypes);
-
-//   module.exports = ModelsLoader.load({
-//     sequelize,
-//     dataTypes,
-//     baseFolder: __dirname
-//   });
-// } else {
-//   /* eslint-disable no-console */
-//   console.error('Database configuration not found, disabling database.');
-//   /* eslint-enable no-console */
-
 const mongoose = require('mongoose');
 
 module.exports = ({ logger, config }) => {
 
-  const uri = `mongodb://${config.db.host}/${config.db.port}/${config.db.database}`;
+  const uri = `mongodb://${config.db.host}:${config.db.port}/${config.db.database}`;
+  console.log(uri);
 
   const connectionOptions = {
     keepAlive: 1,
@@ -36,7 +17,7 @@ module.exports = ({ logger, config }) => {
   };
   
 
-  mongoose.Promise = Promise;
+  // mongoose.Promise = Promise;
 
   mongoose.connection.on('error', (err) => {
     logger.error('Unable to connect to Database.', err.message);
@@ -44,10 +25,18 @@ module.exports = ({ logger, config }) => {
   });
 
 
-  mongoose.set('debug', true);
+  mongoose.set('debug', (collectionName, method, query, doc) => {
+    logger.info(`${collectionName}.${method}`, JSON.stringify(query), doc);
+  });
 
   mongoose.connect(uri, connectionOptions);
 
-  return mongoose.connection;
+  // eslint-disable-next-line no-unused-vars
+  return new Promise((resolve, reject) => {
+    mongoose.connection.on('connected', () => {
+      logger.info(`Database connection is open to ${uri}`);
+      resolve(mongoose.connection);
+    });
+  });
 
 };

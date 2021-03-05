@@ -1,11 +1,11 @@
 module.exports = {
   development: {
-    database: 'clean_node_ddd_dev',
+    database: 'clean-node-ddd',
     host: process.env.DB_LOCAL_HOST,
     port: process.env.DB_LOCAL_PORT
   },
   test: {
-    database: 'clean_node_ddd_test',
+    database: 'clean-node-ddd',
     host: process.env.DB_TEST_HOST,
     port: process.env.DB_TEST_PORT
   },
