@@ -22,7 +22,7 @@ const errorHandler = require('./interfaces/http/errors/errorHandler');
 const devErrorHandler = require('./interfaces/http/errors/devErrorHandler');
 
 const logger = require('./infra/logging/logger');
-const SequelizeUsersRepository = require('./infra/user/SequelizeUsersRepository');
+// const SequelizeUsersRepository = require('./infra/user/SequelizeUsersRepository');
 const database = require('./infra/mongoose');
 const { User: UserModel } = require('./infra/database/models');
 
@@ -53,9 +53,9 @@ container
   });
 
 // Repositories
-container.register({
-  usersRepository: asClass(SequelizeUsersRepository).singleton()
-});
+// container.register({
+//   usersRepository: asClass(SequelizeUsersRepository).singleton()
+// });
 
 // Database
 container
