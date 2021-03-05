@@ -15,4 +15,4 @@ module.exports = {
     logging: false
   },
   production: process.env.CLEARDB_DATABASE_URL
-}
+};
