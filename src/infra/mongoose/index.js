@@ -22,6 +22,20 @@ const mongoose = require('mongoose');
 
 module.exports = ({ logger, config }) => {
 
+  const uri = `mongodb://${config.db.host}/${config.db.port}/${config.db.database}`;
+
+  const connectionOptions = {
+    keepAlive: 1,
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    // reconnectTries: Number.MAX_VALUE,
+    // reconnectInterval: 500,
+    // connectTimeoutMS: 10000,
+  };
+  
+
   mongoose.Promise = Promise;
 
   mongoose.connection.on('error', (err) => {
@@ -32,6 +46,8 @@ module.exports = ({ logger, config }) => {
 
   mongoose.set('debug', true);
 
-  mongoose.connect(config);
+  mongoose.connect(uri, connectionOptions);
+
+  return mongoose.connection;
 
 };
