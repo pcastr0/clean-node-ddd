@@ -1,19 +1,19 @@
 const User = require('src/domain/user/User');
 
-const SequelizeUserMapper = {
+const MongooseUserMapper = {
   toEntity({ dataValues }) {
-    const { id, firstName, middleName, lastName, gender, email, contactNumber, address, birthday } = dataValues;
+    const { _id, email, firstName, middleName, lastName, contactNumber, address } = dataValues;
 
-    return new User({ id, firstName, middleName, lastName, gender, email, contactNumber, address, birthday });
+    return new User({ _id, email, firstName, middleName, lastName, contactNumber, address });
 
   },
 
   toDatabase(survivor) {
-    const { firstName, middleName, lastName, gender, email, contactNumber, address, birthday } = survivor;
+    const { email, firstName, middleName, lastName, contactNumber, address } = survivor;
 
-    return { firstName, middleName, lastName, gender, email, contactNumber, address, birthday };
+    return { email, firstName, middleName, lastName, contactNumber, address };
   }
 };
 
-module.exports = SequelizeUserMapper;
+module.exports = MongooseUserMapper;
 

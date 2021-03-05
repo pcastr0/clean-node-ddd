@@ -1,59 +1,61 @@
-// const { expect } = require('chai');
-// const factory = require('test/utils/factory');
-// const SequelizeUsersRepository = require('src/infra/user/SequelizeUsersRepository');
-// const User = require('src/domain/user/User');
-// const { user: UserModel } = require('src/infra/database/models');
+const { expect } = require('chai');
+const factory = require('test/utils/factory');
+const MongooseUsersRepository = require('src/infra/user/MongooseUsersRepository');
+const User = require('src/domain/user/User');
+const { User: UserModel } = require('src/infra/database/models');
 
 
-describe('Infra :: User :: SequelizeUsersRepository', () => {
-  // let repository;
+describe('Infra :: User :: MongooseUsersRepository', () => {
+  let repository;
 
-  // beforeEach(() => {
-  //   repository = new SequelizeUsersRepository({ UserModel });
-  // });
+  beforeEach(() => {
+    repository = new MongooseUsersRepository({ UserModel });
+  });
 
-  // describe('#getAll', () => {
-  //   beforeEach(() => {
-  //     return factory.createMany('user', 2, [
-  //       {
-  //         firstName: 'Patrick',
-  //         middleName: 'Corpuz',
-  //         lastName: 'Castro',
-  //         email: 'patrickp.castro@gmail.com',
-  //         contactNumber: '+639155634242'
-  //       },
-  //       {
-  //         firstName: 'Paul',
-  //         middleName: 'Supangan',
-  //         lastName: 'Corpuz',
-  //         email: 'patrickcastro4.20@gmail.com',
-  //         contactNumber: '+639123456789'
-  //       },
-  //     ]);
-  //   });
+  describe('#getAll', () => {
+    // beforeEach(() => {
+    //   // return factory.createMany('user', 2, [
+    //   //   {
+    //   //     email: 'patrickp.castro@gmail.com',
+    //   //     firstName: 'Patrick',
+    //   //     middleName: 'Corpuz',
+    //   //     lastName: 'Castro',
+    //   //     contactNumber: '+639155634242'
+    //   //   },
+    //   //   { 
+    //   //     email: 'patrickcastro4.20@gmail.com',
+    //   //     firstName: 'Paul',
+    //   //     middleName: 'Supangan',
+    //   //     lastName: 'Corpuz',
+    //   //     contactNumber: '+639123456789'
+    //   //   },
+    //   // ]);
+    // });
 
-  //   it('returns all users from the database', async () => {
-  //     const users = await repository.getAll();
+    it('returns all users from the database', () => {
+      // const users = await repository.getAll();
 
-  //     expect(users).to.have.lengthOf(2);
+      console.log(repository);
 
-  //     expect(users[0]).to.be.instanceOf(User);
-  //     expect(users[0].firstName).to.be.equal('Patrick');
-  //     expect(users[0].middleName).to.be.equal('Corpuz');
-  //     expect(users[0].lastName).to.be.equal('Castro');
-  //     expect(users[0].email).to.be.equal('patrickp.castro@gmail.com');
-  //     expect(users[0].contactNumber).to.be.equal('+639155634242');
+      // expect(users).to.have.lengthOf(2);
 
-  //     expect(users[1]).to.be.instanceOf(User);
-  //     expect(users[1].firstName).to.be.equal('Paul');
-  //     expect(users[1].middleName).to.be.equal('Supangan');
-  //     expect(users[1].lastName).to.be.equal('Corpuz');
-  //     expect(users[1].email).to.be.equal('patrickcastro4.20@gmail.com');
-  //     expect(users[1].contactNumber).to.be.equal('+639123456789');
+      // expect(users[0]).to.be.instanceOf(User);
+      // expect(users[0].firstName).to.be.equal('Patrick');
+      // expect(users[0].middleName).to.be.equal('Corpuz');
+      // expect(users[0].lastName).to.be.equal('Castro');
+      // expect(users[0].email).to.be.equal('patrickp.castro@gmail.com');
+      // expect(users[0].contactNumber).to.be.equal('+639155634242');
 
-  //   });
+      // expect(users[1]).to.be.instanceOf(User);
+      // expect(users[1].firstName).to.be.equal('Paul');
+      // expect(users[1].middleName).to.be.equal('Supangan');
+      // expect(users[1].lastName).to.be.equal('Corpuz');
+      // expect(users[1].email).to.be.equal('patrickcastro4.20@gmail.com');
+      // expect(users[1].contactNumber).to.be.equal('+639123456789');
 
-  // });
+    });
+
+  });
 
   // describe('#getById', () => {
   //   context('when user exists', () => {
