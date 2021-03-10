@@ -14,8 +14,8 @@ class GetUser extends Operation {
       this.emit(SUCCESS, user);
     } catch (error) {
       this.emit(NOT_FOUND, {
-        type: error.message,
-        details: error.details
+        type: error.name,
+        details: error.message
       });
     }
   }

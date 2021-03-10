@@ -10,7 +10,7 @@ const UserController = {
     router.get('/:id', this.show);
     router.post('/', this.create);
     router.put('/:id', this.update);
-    router.delete('/:id', this.delete);
+    // router.delete('/:id', this.delete);
 
     return router;
   },
@@ -49,7 +49,7 @@ const UserController = {
         })
         .on(ERROR, next);
 
-      getUser.execute(Number(req.params.id));
+      getUser.execute(req.params.id);
     }
   ),
 
@@ -103,29 +103,29 @@ const UserController = {
         })
         .on(ERROR, next);
 
-      updateUser.execute(Number(req.params.id), req.body);
+      updateUser.execute(req.params.id, req.body);
     }
   ),
 
-  delete: inject(({ deleteUser }) => 
-    (req, res, next) => {
-      const { SUCCESS, NOT_FOUND, ERROR } = deleteUser.outputs;
+  // delete: inject(({ deleteUser }) => 
+  //   (req, res, next) => {
+  //     const { SUCCESS, NOT_FOUND, ERROR } = deleteUser.outputs;
 
-      deleteUser
-        .on(SUCCESS, () => {
-          res.status(Status.ACCEPTED).end();
-        })
-        .on(NOT_FOUND, (error) => {
-          res.status(Status.NOT_FOUND).json({
-            type: 'NotFoundError',
-            details: error.details
-          });
-        })
-        .on(ERROR, next);
+  //     deleteUser
+  //       .on(SUCCESS, () => {
+  //         res.status(Status.ACCEPTED).end();
+  //       })
+  //       .on(NOT_FOUND, (error) => {
+  //         res.status(Status.NOT_FOUND).json({
+  //           type: 'NotFoundError',
+  //           details: error.details
+  //         });
+  //       })
+  //       .on(ERROR, next);
       
-      deleteUser.execute(Number(req.params.id));
-    }
-  )
+  //     deleteUser.execute(Number(req.params.id));
+  //   }
+  // )
   
 };
 

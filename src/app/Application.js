@@ -4,18 +4,15 @@ class Application {
     this.database = database;
     this.logger = logger;
 
-    if(database && database.options.logging) {
-      database.options.logging = logger.info.bind(logger);
-    }
   }
 
   async start() {
     if (this.database) {
       try {
-        await this.database.authenticate();
-        this.logger.info('Database is connected.');
+        await this.database;
+        this.logger.info('Application started Successfully.');
       } catch (err) {
-        this.logger.error('Unable to connect to Database.', err.message)
+        this.logger.error('Internel Server Error.', err.message);
       }
     }
 

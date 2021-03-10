@@ -22,8 +22,10 @@ const errorHandler = require('./interfaces/http/errors/errorHandler');
 const devErrorHandler = require('./interfaces/http/errors/devErrorHandler');
 
 const logger = require('./infra/logging/logger');
-const SequelizeUsersRepository = require('./infra/user/SequelizeUsersRepository');
-const { database, user: UserModel } = require('./infra/database/models');
+const database = require('./infra/mongoose');
+const { User: UserModel } = require('./infra/database/models');
+const MongooseUserRepository = require('./infra/repository/user/MongooseUserRepository');
+// const { database, user: UserModel } = require('./infra/database/models');
 
 const container = createContainer();
 
@@ -53,13 +55,13 @@ container
 
 // Repositories
 container.register({
-  usersRepository: asClass(SequelizeUsersRepository).singleton()
+  usersRepository: asClass(MongooseUserRepository).singleton()
 });
 
 // Database
 container
   .register({
-    database: asValue(database),
+    database: asFunction(database),
     UserModel: asValue(UserModel)
   });
 

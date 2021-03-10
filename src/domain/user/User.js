@@ -1,7 +1,12 @@
 const { attributes } = require('structure');
 
 const User = attributes({
-  id: Number,
+  _id: String,
+  email: {
+    type: String,
+    email: true,
+    required: true
+  },
   firstName: {
     type: String,
     required: true
@@ -14,15 +19,6 @@ const User = attributes({
     type: String,
     required: true
   },
-  gender: {
-    type: String,
-    nullable: true
-  },
-  email: {
-    type: String,
-    email: true,
-    required: true
-  },
   contactNumber: {
     type: String,
     required: true
@@ -30,20 +26,9 @@ const User = attributes({
   address: {
     type: String,
     nullable: true
-  },
-  birthday: {
-    type: Date,
-    nullable: true
-  },
-  age: {
-    type: Number
   }
 })(class User {
-  isLegal() {
-    return this.age >= User.MIN_LEGAL_AGE;
-  }
+  
 });
-
-User.MIN_LEGAL_AGE = 21;
 
 module.exports = User;
