@@ -1,18 +1,18 @@
 module.exports = {
   development: {
-    username: process.env.DB_LOCAL_USER,
-    password: process.env.DB_LOCAL_PASS,
+    username: 'ppcc_db',
+    password: 'mysql_password',
     database: 'clean_node_ddd',
-    host: process.env.DB_LOCAL_HOST,
+    host: '127.0.0.1',
     dialect: 'mysql'
   },
   test: {
-    username: process.env.DB_TEST_USER,
-    password: process.env.DB_TEST_PASS,
+    username: 'ppcc_db',
+    password: 'mysql_password',
     database: 'clean_node_ddd',
-    host: process.env.DB_TEST_HOST,
+    host: '127.0.0.1',
     dialect: 'mysql',
     logging: false
   },
-  production: process.env.CLEARDB_DATABASE_URL
+  production: process.env.DATABASE_URL
 };

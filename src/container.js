@@ -20,6 +20,7 @@ const router = require('./interfaces/http/router');
 const loggerMiddleware = require('./interfaces/http/logging/loggerMiddleware');
 const errorHandler = require('./interfaces/http/errors/errorHandler');
 const devErrorHandler = require('./interfaces/http/errors/devErrorHandler');
+const swaggerMiddleware = require('./interfaces/http/swagger/swaggerMiddleware');
 
 const logger = require('./infra/logging/logger');
 const SequelizeUsersRepository = require('./infra/user/SequelizeUsersRepository');
@@ -48,7 +49,8 @@ container
   })
   .register({
     containerMiddleware: asValue(scopePerRequest(container)),
-    errorHandler: asValue(config.production ? errorHandler : devErrorHandler) 
+    errorHandler: asValue(config.production ? errorHandler : devErrorHandler),
+    swaggerMiddleware: asValue([swaggerMiddleware])
   });
 
 // Repositories

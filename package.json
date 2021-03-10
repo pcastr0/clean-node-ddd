@@ -16,6 +16,7 @@
     "coverage": "cross-env NODE_PATH=. NODE_ENV=test nyc mocha --config test/.mocharc.unit.js",
     "lint": "eslint {src,test,config}/**/*.js",
     "sequelize": "cross-env NODE_PATH=. sequelize",
+    "console": "cross-env NODE_PATH=. node src/interfaces/console/index.js",
     "heroku-postbuild": "NODE_ENV=production NODE_PATH=. sequelize db:migrate --url=$DATABASE_URL",
     "pm2": "pm2"
   },
@@ -51,7 +52,8 @@
     "pm2": "^4.5.4",
     "sequelize": "^6.5.0",
     "sequelize-cli": "^6.2.0",
-    "structure": "^2.0.1"
+    "structure": "^2.0.1",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "chai": "^4.2.0",
