@@ -16,10 +16,10 @@ describe('Infra :: User :: SequelizeUsersRepository', () => {
     beforeEach(() => {
       return factory.createMany('user', 2, [
         {
+          email: 'patrickp.castro@gmail.com',
           firstName: 'Patrick',
           middleName: 'Corpuz',
           lastName: 'Castro',
-          email: 'patrickp.castro@gmail.com',
           contactNumber: '+639155634242'
         },
         {

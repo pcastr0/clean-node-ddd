@@ -8,6 +8,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      email: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      passwordHash : {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      acceptTerms: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        default: false
+      },
       firstName: {
         allowNull: false,
         type: Sequelize.STRING
@@ -20,14 +33,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      gender: {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      email: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       contactNumber: {
         allowNull: true,
         type: Sequelize.STRING
@@ -35,10 +40,6 @@ module.exports = {
       address: {
         allowNull: true,
         type: Sequelize.STRING
-      },
-      birthday: {
-        allowNull: true,
-        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

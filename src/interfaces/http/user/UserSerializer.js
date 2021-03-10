@@ -1,15 +1,15 @@
 const UserSerializer = {
-  serialize({ id, firstName, middleName, lastName, gender, email, contactNumber, address, birthday }) {
+  serialize({ id, email, passwordHash, acceptTerms, firstName, middleName, lastName, contactNumber, address }) {
     return {
       id,
+      email,
+      passwordHash,
+      acceptTerms,
       firstName,
       middleName,
       lastName,
-      gender,
-      email,
       contactNumber,
-      address,
-      birthday
+      address
     };
   }
 };
