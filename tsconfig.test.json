@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node", "mocha"]
+  },
+  "include": ["src/**/*", "config/**/*", "index.ts", "cluster.ts", "test/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
