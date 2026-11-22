@@ -1,5 +1,6 @@
 (module.exports = {
-  "file": "test/setup.js",
-  "spec": "test/integration/**/*.spec.js",
-  "recursive": true
+    "require": "tsx/cjs",
+    "file": "test/setup.integration.ts",
+    "spec": "test/integration/**/*.spec.ts",
+    "recursive": true
 })

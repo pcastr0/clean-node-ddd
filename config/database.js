@@ -9,7 +9,7 @@ module.exports = {
   test: {
     username: 'ppcc_db',
     password: 'mysql_password',
-    database: 'clean_node_ddd',
+    database: 'clean_node_ddd_test',
     host: '127.0.0.1',
     dialect: 'mysql',
     logging: false
